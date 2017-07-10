@@ -1,24 +1,51 @@
+SRC=max
+
 all:
-	as hello.s -o hello.o
-	ld hello.o
+	as $(SRC).s -o $(SRC).o
+	ld $(SRC).o -o $(SRC)
 
 debug:
-	as hello.s -gstabs -o hello.o
-	ld hello.o
+	as $(SRC).s -gstabs -o $(SRC).o
+	ld $(SRC).o
+
+max2:
+	as max2.s -o max2.o
+	ld max2.o -o max2
+
+main:
+	gcc -g -Wall main.c -o main	
+
+read-max-o:
+	readelf -a max.o
+objdump-max-o:
+	objdump -d max.o
+
+read-max:
+	readelf -a max
+objdump-max:
+	objdump -d max
+
+strip:
+	strip max
+	readelf -a max
+
+file:
+	file *
 
 clean:
-	-rm *.o *.out
+	-rm *.o *.out max max2 cscope* main
 
-# 老版本的U2(gdb 7.1)有个bug：第一条指令处停不住; gdb 7.2没有此bug
-# 下面是在老版本gdb中调试
-# GDB debug
-# 1. make debug
-# 2. gdb a.out [-tui]
-# 3. break *_start+1	打断点
-# 4. run				执行
-# display $eax
-# display $ebx
-# display 
+# hexdump -C max2 可以看到ascii字符串，在.data section
+#
+# gdb main
+#(gdb) ptype e_type
+#No symbol "e_type" in current context.
+#(gdb) ptype Elf32_Half
+#type = short unsigned int
+#(gdb) ptype Elf32_Word
+#type = unsigned int
+#(gdb) ptype Elf32_Off
+#type = unsigned int
+#(gdb) ptype Elf32_Addr
+#type = unsigned int
 
-# disassemble
-# display /i $pc
