@@ -1,13 +1,14 @@
-SRC = calling_convention
+SRC = main
 
 all:
 	gcc $(SRC).c -g
 
+#C中利用汇编指令__asm__(".ascii  \"aaaa\"");
+#结合hexdump -C a.out
+#一目了然sectionr: text, rodata, data在file中的布局
+#以及变量在内存中的布局
+ext:
+	gcc main_ext.c -g
+
 clean:
-	-rm *.o *.out *.s
-
-#__stdcall__: 函数清除栈中参数	ret 8	给调用者找麻烦 sub 8, esp
-#__cdecl__:  Linux默认方式，栈参数在调用者中处理
-#			参数是在栈内存中布局，而不是用push，pop指令
-
-
+	-rm *.o *.out 
