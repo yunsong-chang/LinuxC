@@ -1,22 +1,13 @@
-SRC=main
+SRC = calling_convention
 
 all:
 	gcc $(SRC).c -g
 
-objdump:
-	objdump -dS a.out
-
-S:
-	gcc -S main.c
-
 clean:
 	-rm *.o *.out *.s
 
-# gdb的使用
-# gdb a.out [-tui]
-# display /i $pc	显示汇编指令
-# x /20 $esp		显示栈
-# help x			帮助
-# disassemble		反汇编
-# info registers 	反汇编
-# bt、frame、info locals 显示栈帧
+#__stdcall__: 函数清除栈中参数	ret 8	给调用者找麻烦 sub 8, esp
+#__cdecl__:  Linux默认方式，栈参数在调用者中处理
+#			参数是在栈内存中布局，而不是用push，pop指令
+
+
