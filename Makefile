@@ -1,19 +1,22 @@
-A:
-	gcc -g -Wall A.c
-	objdump -dS > A.txt
-	gdb a.out
+SRC=main
 
-B:
-	gcc -g -Wall -std=c99 B.c
-	objdump -dS > B.txt
-	gdb a.out
-	
+all:
+	gcc $(SRC).c -g
+
+objdump:
+	objdump -dS a.out
+
+S:
+	gcc -S main.c
+
 clean:
-	-rm *.o *.out *.txt
+	-rm *.o *.out *.s
 
-# 数组元素的汇编表示
-# gdb disassemble
-# vi /<\main
-# sizeof被gcc处理了，code中并没有
-# 数组被  gcc处理了，code中并没有, 只不过表示为 地址+长度的方式
-# 代码中无数组、sizeof
+# gdb的使用
+# gdb a.out [-tui]
+# display /i $pc	显示汇编指令
+# x /20 $esp		显示栈
+# help x			帮助
+# disassemble		反汇编
+# info registers 	反汇编
+# bt、frame、info locals 显示栈帧
