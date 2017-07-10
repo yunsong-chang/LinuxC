@@ -19,6 +19,7 @@
  .section .text
  .globl _start
 _start:
+nop
  movl $1, %eax	# this is the linux kernel command
 		# number (system call) for exiting
 		# a program
