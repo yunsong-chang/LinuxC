@@ -1,35 +1,21 @@
 #include <stdio.h>
 
-int main(int argc, char** argv)
+typedef struct {
+	unsigned int one:1;
+	unsigned int two:3;
+	unsigned int three:10;
+	unsigned int four:5;
+	unsigned int :2;
+	unsigned int five:8;
+	unsigned int six:8;
+} demo_type;
+
+int main(void)
 {
-	struct {
-		char a;
-		short b;
-		int c;
-		char d;
-	} s;
+	demo_type s = { 1, 5, 513, 17, 129, 0x81 };
+	printf("sizeof demo_type = %u\n", sizeof(demo_type));
+	printf("values: s=%u,%u,%u,%u,%u,%u\n",
+	       s.one, s.two, s.three, s.four, s.five, s.six);
 
-	s.a = 1;
-	s.b = 2;
-	s.c = 3;
-	s.d = 4;
-	printf("%u\n", sizeof(s));
-
-	__asm__("nop");
-	__asm__("nop");
-
-	struct {
-		char a;
-		short b;
-		int c;
-		char d;
-	} __attribute__((packed)) s2;
-
-	s2.a = 1;
-	s2.b = 2;
-	s2.c = 3;
-	s2.d = 4;
-	printf("%u\n", sizeof(s2));
-	
 	return 0;
 }
