@@ -1,7 +1,7 @@
 SRC = main
 
 all:
-	gcc $(SRC).c -g
+	gcc $(SRC).c -Wall -g
 
 clean:
 	-rm *.o *.out 
