@@ -1,18 +1,17 @@
-/* artificial device registers */
-unsigned char recv;
-unsigned char send;
+/* main.c */
+#include <stdio.h>
 
-/* memory buffer */
-unsigned char buf[3];
+int a, b = 1;
 
 int main(void)
 {
-	buf[0] = recv; // 读recv三次,可能优化成只读第一次
-	buf[1] = recv;
-	buf[2] = recv;
-	send = ~buf[0]; // 写send三次,可能优化成只写最后一次
-	send = ~buf[1];
-	send = ~buf[2];
+	push('a');
+	push('b');
+	push('c');
+	
+	while(!is_empty())
+		putchar(pop());
+	putchar('\n');
 
 	return 0;
 }
