@@ -5,5 +5,5 @@
 int main(void)
 {
 	push('a');
-	return 0;
+	return 9;
 }
