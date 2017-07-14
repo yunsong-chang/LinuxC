@@ -1,10 +1,10 @@
 SRC = main
 
-all:
-	gcc main.c -g -Wall
+cpp:
+	cpp main.c
 
-inline:
-	gcc main.c -g -Wall -O
+E:
+	gcc -E main.c
 
 clean:
 	-rm *.o *.out $(SRC)

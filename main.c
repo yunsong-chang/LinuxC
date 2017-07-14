@@ -1,17 +1,58 @@
-inline int MAX(int a, int b)
-{
-	return a > b ? a : b;
-}
+#define STR(s) # s
+STR(hello 	world)
+//"hello world"
 
-int a[] = { 9, 3, 5, 2, 1, 0, 8, 7, 6, 4 };
+#define STR(s) #s
+fputs(STR(strncmp("ab\"c\0d", "abc", '\4"')
+	== 0) STR(: @\n), s);
+//fputs("strncmp(\"ab\\\"c\\0d\", \"abc\", '\\4\"') == 0" ": @\n", s);
 
-int max(int n)
-{
-	return n == 0 ? a[0] : MAX(a[n], max(n-1));
-}
+#define CONCAT(a, b) a##b
+CONCAT(con, cat)
+//concat
+
+#define HASH_HASH # ## #
+HASH_HASH 
+//##
+
+#define showlist0(...) printf(__VA_ARGS__)
+showlist0(The first, second, and third items.);
+//printf(The first, second, and third items.);
+
+#define showlist(...) printf(#__VA_ARGS__)
+showlist(The first, second, and third items.);
+//printf("The first, second, and third items.");
+
+
+#define report(test, ...) ((test)?printf(#test):\
+	printf(__VA_ARGS__))
+report(x>y, "x is %d but y is %d", x, y);
+// ((x>y)?printf("x>y"): printf("x is %d but y is %d", x, y));
+
+
+#define FOOL(a) FOOL##a
+FOOL(bar)
+FOOL()
+
+#define FOO(a, b, c) a##b##c
+FOO(1,2,3)
+FOO(1,2,)
+FOO(1,,3)
+FOO(,,3)
+FOO()
+// main.c:42:5: error: macro "FOO" requires 3 arguments, but only 1 given
+// FOO
+
+
+#define DEBUGP0(format, ...) printk(format, __VA_ARGS__)
+DEBUGP0("info")
+//printk("info",)
+
+#define DEBUGP(format, ...) printk(format, ## __VA_ARGS__)
+DEBUGP("info")
+//printk("info")
 
 int main(void)
 {
-	 max(9);
 	return 0;
 }
