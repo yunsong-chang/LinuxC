@@ -1,18 +1,20 @@
-SRC = main
-
 main: main.o stack.o maze.o
 	gcc main.o stack.o maze.o -o main
 
-main.o: main.c main.h stack.h maze.h
+main.o: main.h stack.h maze.h
+stack.o: stack.h main.h
+maze.o: maze.h main.h
+
+main.o: main.c
 	gcc -c main.c
 
-stack.o: stack.c stack.h main.h
+stack.o: stack.c
 	gcc -c stack.c
 
-maze.o: maze.c maze.h main.h
+maze.o: maze.c
 	gcc -c maze.c
 
 clean:
-	-rm *.o *.out $(SRC)
+	-rm main *.o
 
 .PHONY: clean
