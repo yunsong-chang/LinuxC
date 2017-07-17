@@ -5,14 +5,10 @@ main.o: main.h stack.h maze.h
 stack.o: stack.h main.h
 maze.o: maze.h main.h
 
-main.o: main.c
-	gcc -c main.c
-
-stack.o: stack.c
-	gcc -c stack.c
-
-maze.o: maze.c
-	gcc -c maze.c
+#%.o: %.c
+# implicit rule
+#	^I$ 有个空的TAB，maze.o走了一个空命令，故没有生成maze.o
+# 诡异的错误: Makefile中不要有多余的TAB, cat -A Makefile
 
 clean:
 	-rm main *.o
