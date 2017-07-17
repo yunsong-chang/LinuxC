@@ -1,10 +1,10 @@
 SRC = main
 
-cpp:
-	cpp main.c
+debug--version:
+	gcc main.c xassert.c
 
-E:
-	gcc -E main.c
+nodebug--version:
+	gcc main.c xassert.c -DNDEBUG
 
 clean:
 	-rm *.o *.out $(SRC)
