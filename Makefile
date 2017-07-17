@@ -1,10 +1,8 @@
-SRC = main
+all:
+	gcc -g -Wall main.c
 
-debug--version:
-	gcc main.c xassert.c
-
-nodebug--version:
-	gcc main.c xassert.c -DNDEBUG
+cpp:
+	cpp main.c
 
 clean:
-	-rm *.o *.out $(SRC)
+	-rm *.o *.out cscope*
