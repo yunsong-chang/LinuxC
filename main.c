@@ -1,23 +1,59 @@
+/* main.c */
 #include <stdio.h>
+#include "main.h"
+#include "stack.h"
+#include "maze.h"
 
-void myfunc(void)
+struct point predecessor[MAX_ROW][MAX_COL] = {
+	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
+	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
+	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
+	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
+	{{-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},
+};
+
+void visit(int row, int col, struct point pre)
 {
-	printf("__func__=%s\n", __func__);
-	printf("__FUNCTION__=%s\n", __FUNCTION__);
-	printf("__PRETTY_FUNCTION__=%s\n", __PRETTY_FUNCTION__);
-	printf("__PRETTY_FUNCTION__=%s\n", __PRETTY_FUNCTION__);
-	printf("__LINE__=%d\n", __LINE__);
-	printf("__FILE__=%s\n", __FILE__);
+	struct point visit_point = { row, col };
+	maze[row][col] = 2;
+	predecessor[row][col] = pre;
+	push(visit_point);
 }
 
 int main(void)
 {
-	myfunc();
-	printf("%s\n", __func__);
+	struct point p = { 0, 0 };
+
+	maze[p.row][p.col] = 2;
+	push(p);	
+	
+	while (!is_empty()) {
+		p = pop();
+		if (p.row == MAX_ROW - 1  /* goal */
+		    && p.col == MAX_COL - 1)
+			break;
+		if (p.col+1 < MAX_COL     /* right */
+		    && maze[p.row][p.col+1] == 0)
+			visit(p.row, p.col+1, p);
+		if (p.row+1 < MAX_ROW     /* down */
+		    && maze[p.row+1][p.col] == 0)
+			visit(p.row+1, p.col, p);
+		if (p.col-1 >= 0          /* left */
+		    && maze[p.row][p.col-1] == 0)
+			visit(p.row, p.col-1, p);
+		if (p.row-1 >= 0          /* up */
+		    && maze[p.row-1][p.col] == 0)
+			visit(p.row-1, p.col, p);
+		print_maze();
+	}
+	if (p.row == MAX_ROW - 1 && p.col == MAX_COL - 1) {
+		printf("(%d, %d)\n", p.row, p.col);
+		while (predecessor[p.row][p.col].row != -1) {
+			p = predecessor[p.row][p.col];
+			printf("(%d, %d)\n", p.row, p.col);
+		}
+	} else
+		printf("No path!\n");
+
 	return 0;
 }
-
-// C99支持__func__, 以前GNU C预定义了__FUNCTION__ __PRETTY_FUNCTION__
-// 现在Linux用__func__, 不用__FUNCTION__
-// CPP main.c 可以看到__LINE__, __FILE的替换，而看不到__func__
-// 因此判断__func__是变量名而不是宏
