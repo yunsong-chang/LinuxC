@@ -1,11 +1,8 @@
-main: main.o stack.o maze.o
-	gcc main.o stack.o maze.o -o main
+all: 
+	@echo $(foo)
 
-main.o stack.o maze.o: main.h
-main.o maze.o: maze.h
-main.o stack.o: stack.h
+foo = $(bar) 
+bar = Huh? 
 
-clean:
-	-rm main *.o
-
-.PHONY: clean
+# step 1: 确定依赖关系
+# step 2: 选择规则
