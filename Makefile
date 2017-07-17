@@ -1,13 +1,13 @@
-x1 := foo
-y1 := $(x1) bar
+objects = main.o
+objects += $(foo)		# += 保持=后展开（先确定依赖，后展开变量）
+foo = foo.o bar.o
 
-y2 := $(x2) bar
-x2 := foo
+hou_zhankai:
+	@echo $(objects)
 
-y3 = $(x3) bar
-x3 = foo
+objs := main.o
+objs += $(bar)			# += 保持:=立即展开
+bar = foo.o bar.o
 
-all: 
-	@echo "-$(y1)-"		# y1: foo bar
-	@echo "-$(y2)-"		# y2: 空格bar	立即展开
-	@echo "-$(y3)-"		# y3：foo bar 	后展开
+liji_zhankai:
+	@echo $(objs)
