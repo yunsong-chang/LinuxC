@@ -1,13 +1,26 @@
-objects = main.o
-objects += $(foo)		# += 保持=后展开（先确定依赖，后展开变量）
-foo = foo.o bar.o
+all: main
 
-hou_zhankai:
-	@echo $(objects)
+main: main.o stack.o maze.o
+	gcc $^ -o $@
 
-objs := main.o
-objs += $(bar)			# += 保持:=立即展开
-bar = foo.o bar.o
+clean:
+	-rm main *.o *.d
 
-liji_zhankai:
-	@echo $(objs)
+.PHONY: clean
+
+sources = main.c stack.c maze.c
+
+include $(sources:.c=.d)
+
+%.d: %.c
+	set -e; rm -f $@; \
+	$(CC) -MM $(CPPFLAGS) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+	rm -f $@.$$$$
+
+# pattern rule
+# $^: 
+#$@: 目标
+#$^: 所有条件
+#$<: 第一个条件
+#$?: 所有比目标新的条件
