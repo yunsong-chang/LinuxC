@@ -1,21 +1,18 @@
 #include <stdio.h>
-#include <stddef.h>
 
-int main()
+int *swap(int *px, int *py)
 {
-	int i = 5;
-	int *pi = &i;
-	char c = 6;
-	int *pc = (int *)&c;
-	void *vp;
-	pc = NULL;
-	(void)pi;	// unused pi
-	vp = pi;	// vp <--> p 不需要显示转换
-	pi = vp;
-	vp = pc;
-	pc =vp;
+	int temp;
+	temp = *px;
+	*px = *py;
+	*py = temp;
+	return px;
+}
 
-	printf("Hello world\n");
-
+int main(void)
+{
+	int i = 10, j = 20;
+	int *p = swap(&i, &j);
+	printf("now i=%d j=%d *p=%d\n", i, j, *p);
 	return 0;
 }
