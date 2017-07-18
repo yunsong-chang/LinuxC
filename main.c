@@ -1,18 +1,36 @@
+#include <stddef.h>
 #include <stdio.h>
 
-int *swap(int *px, int *py)
+int *foo(void)
 {
-	int temp;
-	temp = *px;
-	*px = *py;
-	*py = temp;
-	return px;
+	int a;
+	int *pa;
+	pa = &a;
+	return pa;
 }
 
 int main(void)
 {
-	int i = 10, j = 20;
-	int *p = swap(&i, &j);
-	printf("now i=%d j=%d *p=%d\n", i, j, *p);
+	int *p = foo();
+	(void)p;
+	p = NULL;
+	int A[] = {0,1,2,3};
+	ptrdiff_t pd;
+	p=A;
+	p++;
+	p++;
+	pd = p - A;
 	return 0;
 }
+
+#if 0
+myscope()
+{
+	find /usr/include -maxdepth 1 -name "*.[ch]" > cscope.files
+	find /usr/lib/gcc/i486-linux-gnu/4.4/include/ -maxdepth 1 -name "*.[ch]" >> cscope.files
+	find . -name "*.[ch]" >> cscope.files
+	cscope -bk
+}
+
+运行时再次-k: cscope -k, 以免重新生成cscope.out
+#endif

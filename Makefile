@@ -2,4 +2,4 @@ all:
 	gcc -g -Wall main.c
 
 clean:
-	-rm *.o *.out
+	-rm *.o *.out cscope*
