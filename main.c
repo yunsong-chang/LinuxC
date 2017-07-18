@@ -1,36 +1,24 @@
-#include <stddef.h>
 #include <stdio.h>
 
-int *foo(void)
+int main()
 {
-	int a;
-	int *pa;
-	pa = &a;
-	return pa;
-}
+	char c = 'a';
+	const char *p_C;
+	p_C = &c;
 
-int main(void)
-{
-	int *p = foo();
-	(void)p;
-	p = NULL;
-	int A[] = {0,1,2,3};
-	ptrdiff_t pd;
-	p=A;
-	p++;
-	p++;
-	pd = p - A;
+	const char C = 'A';
+	char *p_c;
+	p_c = &C;
+//warning: assignment discards qualifiers from pointer target type
+
+	const char *p = "abcd";
+	const char str1[5] = "abcd";
+	char str2[5] = "abcd";
+
+	printf(p);  // warning: format not a string literal and no format arguments
+
+	printf(str1);
+	printf(str2); // warning: format not a string literal and no format arguments
+	printf("abcd");
 	return 0;
 }
-
-#if 0
-myscope()
-{
-	find /usr/include -maxdepth 1 -name "*.[ch]" > cscope.files
-	find /usr/lib/gcc/i486-linux-gnu/4.4/include/ -maxdepth 1 -name "*.[ch]" >> cscope.files
-	find . -name "*.[ch]" >> cscope.files
-	cscope -bk
-}
-
-运行时再次-k: cscope -k, 以免重新生成cscope.out
-#endif
