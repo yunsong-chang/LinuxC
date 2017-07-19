@@ -1,4 +1,4 @@
 all:
-	gcc -g -Wall main.c populator.c populator.h
+	gcc -g -Wall main.c redirect_ptr.c
 clean:
 	-rm *.o *.out cscope*
