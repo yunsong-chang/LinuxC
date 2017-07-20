@@ -1,10 +1,13 @@
 /* main.c */
 #include <stdio.h>
-#include "ret_ptr.h"
+#include "ret_allocator.h"
 
 int main(void)
 {
-     printf("%s %s\n", get_a_day_buf(0), get_a_day_buf(1));
-     printf("%s %s\n", get_a_day_origin(0), get_a_day_origin(1));
+     unit_t *p = alloc_unit();
+
+     printf("number: %d\nmsg: %s\n", p->number, p->msg);
+     free_unit(p);
+     p = NULL;
      return 0;
 }
