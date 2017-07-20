@@ -1,4 +1,4 @@
 all:
-	gcc -g -Wall main.c para_callback.c
+	gcc -g -Wall main.c generics.c
 clean:
 	-rm *.o *.out cscope*
