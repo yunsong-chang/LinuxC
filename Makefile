@@ -1,4 +1,4 @@
 all:
-	gcc -g -Wall main.c ret_allocator.c
+	gcc -g -Wall main.c para_callback.c
 clean:
 	-rm *.o *.out cscope*

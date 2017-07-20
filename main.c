@@ -1,13 +1,23 @@
 /* main.c */
 #include <stdio.h>
-#include "ret_allocator.h"
+#include "para_callback.h"
+
+void say_hello(void *str)
+{
+     printf("Hello %s\n", (const char *)str);
+}
+
+void count_numbers(void *num)
+{
+     int i;
+     for(i=1; i<=(int)num; i++)
+	  printf("%d ", i);
+     putchar('\n');
+}
 
 int main(void)
 {
-     unit_t *p = alloc_unit();
-
-     printf("number: %d\nmsg: %s\n", p->number, p->msg);
-     free_unit(p);
-     p = NULL;
+     repeat_three_times(say_hello, (void *)"Guys");
+     repeat_three_times(count_numbers, (void *)4);
      return 0;
 }
