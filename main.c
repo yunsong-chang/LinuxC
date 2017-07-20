@@ -1,29 +1,24 @@
-/* main.c */
-#include <stdio.h>
-#include "generics.h"
+/* stdarg.h standard header */
+#ifndef _STDARG
+#define _STDARG
 
-typedef struct {
-     const char *name;
-     int score;
-} student_t;
+/* type definitions */
+typedef char *va_list;
+/* macros */
+#define va_arg(ap, T) \
+	(* (T *)(((ap) += _Bnd(T, 3U)) - _Bnd(T, 3U)))
+#define va_end(ap) (void)0
+#define va_start(ap, A) \
+	(void)((ap) = (char *)&(A) + _Bnd(A, 3U))
+#define _Bnd(X, bnd) (sizeof (X) + (bnd) & ~(bnd))
+#endif
+// + 的优先级高于 &
 
-int cmp_student(void *a, void *b)
+int main()
 {
-     if(((student_t *)a)->score > ((student_t *)b)->score)
-	  return 1;
-     else if(((student_t *)a)->score == ((student_t *)b)->score)
-	  return 0;
-     else
-	  return -1;
-}
+	int x;
 
-int main(void)
-{
-     student_t list[4] = {{"Tom", 68}, {"Jerry", 72},
-		       {"Moby", 60}, {"Kirby", 89}};
-     student_t *plist[4] = {&list[0], &list[1], &list[2], &list[3]};
-     student_t *pmax = max((void **)plist, 4, cmp_student);
-     printf("%s gets the highest score %d\n", pmax->name, pmax->score);
-
-     return 0;
+	x = _Bnd(char, 3U);
+// 3: 低两位清零，4字节对齐
+	return 0;
 }

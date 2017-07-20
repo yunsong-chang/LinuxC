@@ -1,4 +1,4 @@
 all:
-	gcc -g -Wall main.c generics.c
+	gcc -g -Wall main.c
 clean:
 	-rm *.o *.out cscope*
