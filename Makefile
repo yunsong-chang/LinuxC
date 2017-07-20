@@ -1,8 +1,15 @@
-all:
-	gcc -g -Wall main.c
+all: avg.c input.c
+	gcc -g -Wall avg.c -o avg.out
+	gcc -g -Wall input.c -o input.out
 
-redirection:
-	./a.out 1>1.txt 2>2.txt <input.txt
+pipe:
+	./input.out | ./avg.out
+#input
+#3
+#4
+#5
+#0
+#avg=4.00   count=3
 
 clean:
-	-rm *.out *.o 1.txt 2.txt
+	-rm *.out *.o
