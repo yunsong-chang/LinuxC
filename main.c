@@ -1,25 +1,28 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-void printlist(int begin, ...)
+
+void showchar(int, int, ...);
+
+
+int main()
 {
-     va_list ap;
-     char *p;
-
-     va_start(ap, begin);
-     p = va_arg(ap, char *);
-
-     while (p != NULL) {
-	  fputs(p, stdout);
-	  putchar('\n');
-	  p = va_arg(ap, char*);
-     }
-     va_end(ap);
+	showchar(8, 0xC, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h');
+	return 0;
 }
 
-int main(void)
+void showchar(int n, int color, ...)
 {
-     printlist(0, "hello", "world", "foo", "bar", NULL);
-     return 0;
-}
-// begin是起点的base，NULL: sentinel
+	int a, ret;
+	va_list ap;
+
+	va_start(ap, color);
+
+	for(a=0; a!=n; a++) 
+	{
+		ret = va_arg(ap, int);
+		printf("%#x\n", ret);
+	}
+
+	va_end(ap);
+} 
