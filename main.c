@@ -1,28 +1,12 @@
 #include <stdio.h>
-#include <stdarg.h>
+#include <string.h>
 
-
-void showchar(int, int, ...);
-
-
-int main()
+int main(void)
 {
-	showchar(8, 0xC, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h');
+	char buf[20] = "hello world\n";
+	memcpy (buf+1, buf, 13);
+	//memmove(buf+1, buf, 13);
+	printf("%s", buf);
+	
 	return 0;
 }
-
-void showchar(int n, int color, ...)
-{
-	int a, ret;
-	va_list ap;
-
-	va_start(ap, color);
-
-	for(a=0; a!=n; a++) 
-	{
-		ret = va_arg(ap, int);
-		printf("%#x\n", ret);
-	}
-
-	va_end(ap);
-} 
