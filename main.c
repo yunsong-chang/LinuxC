@@ -1,34 +1,25 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-void myprintf(const char *format, ...)
+void printlist(int begin, ...)
 {
      va_list ap;
-     char c;
+     char *p;
 
-     va_start(ap, format);
-     while (c = *format++) {
-	  switch(c) {
-	  case 'c': {
-	       /* char is promoted to int when passed through '...' */
-	       char ch = va_arg(ap, int);
-	       putchar(ch);
-	       break;
-	  }
-	  case 's': {
-	       char *p = va_arg(ap, char *);
-	       fputs(p, stdout);
-	       break;
-	  }
-	  default:
-	       putchar(c);
-	  }
+     va_start(ap, begin);
+     p = va_arg(ap, char *);
+
+     while (p != NULL) {
+	  fputs(p, stdout);
+	  putchar('\n');
+	  p = va_arg(ap, char*);
      }
      va_end(ap);
 }
 
 int main(void)
 {
-     myprintf("c\ts\n", '1', "hello");
+     printlist(0, "hello", "world", "foo", "bar", NULL);
      return 0;
 }
+// begin是起点的base，NULL: sentinel
