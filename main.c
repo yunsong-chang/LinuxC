@@ -1,12 +1,58 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifndef REENTRANT
 int main(void)
 {
-	char buf[20] = "hello world\n";
-	memcpy (buf+1, buf, 13);
-	//memmove(buf+1, buf, 13);
-	printf("%s", buf);
+	char str[] = "root:x::0:root:/root:/bin/bash:";
+	char *token;
+
+	token = strtok(str, ":");
+	printf("%s\n", token);
+	while ( (token = strtok(NULL, ":")) != NULL)
+		printf("%s\n", token);
 	
 	return 0;
 }
+#else
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int
+main(int argc, char *argv[])
+{
+    char *str1, *str2, *token, *subtoken;
+    char *saveptr1, *saveptr2;
+    int j;
+
+    if (argc != 4) {
+        fprintf(stderr, "Usage: %s string delim subdelim\n",
+                argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    for (j = 1, str1 = argv[1]; ; j++, str1 = NULL) {
+        token = strtok_r(str1, argv[2], &saveptr1);
+        if (token == NULL)
+            break;
+        printf("%d: %s\n", j, token);
+
+        for (str2 = token; ; str2 = NULL) {
+            subtoken = strtok_r(str2, argv[3], &saveptr2);
+            if (subtoken == NULL)
+                break;
+            printf(" --> %s\n", subtoken);
+        }
+    }
+
+    exit(EXIT_SUCCESS);
+} /* main */
+#endif 
+
+#if 0
+strtok   :使用了静态变量保存处理位置，         不可重入，线程不安全
+strotok_r: **saveptr value_result保存处理位置，可重入，  线程安全
+./a.out 'a/bbb///cc;xxx:yyy:' ':;' '/'
+#endif
