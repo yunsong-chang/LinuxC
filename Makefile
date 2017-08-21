@@ -1,31 +1,18 @@
-SRC = helloworld.cpp
-
 all:
-	g++ $(SRC)
+	g++ hellospeak.cpp speak.cpp -o hellospeak
 
-g++:
-	g++ $(SRC) -o helloworld
+obj:
+	g++ -c hellospeak.cpp
+	g++ -c speak.cpp
+	g++ hellospeak.o speak.o -o hellospeak
 
-gcc:
-	gcc $(SRC) -lstdc++ -o helloworld
-# /usr/lib/libstdc++.so.6 -> libstdc++.so.6.0.13
-# 无libstdc++.a
-
-c++:
-	c++ $(SRC) -o helloworld
-# /usr/bin/c++ -> /etc/alternatives/c++ -> /usr/bin/g++ -> g++-4.4
-
-CPP:
-	gcc -E $(SRC)
-
-CPP2:
-	gcc -E $(SRC) -o helloworld.ii
-
-S:
-	gcc -S $(SRC)
+obj2:
+	g++ -c hellospeak.cpp -o hs.o
+	g++ -c speak.cpp -o s.o
+	g++ hs.o s.o -o hellospeak
 
 clean:
-	rm -rf *.out helloworld *.ii *.s
+	rm -rf *.out hellospeak *.o
 
 # Linux 环境下使用g++编译C++
 # http://blog.csdn.net/hnyzwtf/article/details/44674145
