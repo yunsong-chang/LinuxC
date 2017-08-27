@@ -1,6 +1,6 @@
 /* main.c */
 #include <stdio.h>
-#include "stack.h"
+#include "stack/stack.h"
 
 int main(void)
 {
