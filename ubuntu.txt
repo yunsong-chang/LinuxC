@@ -1,0 +1,5 @@
+apt-get install nasm
+
+dd if=***.bin of=LEECHUNG.vhd bs=512 count=1 seek=0 conv=notrunc
+
+virtualbox中只能用.vhd硬盘，vdi硬盘dd后不能运行
