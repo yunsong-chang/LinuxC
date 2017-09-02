@@ -4,7 +4,7 @@ KVERS = $(shell uname -r)
 obj-m += hello.o
 
 # Specify flags for the module compilation.
-EXTRA_CFLAGS=-g -O0		# objdump -dS hello.ko 增加调试信息
+EXTRA_CFLAGS=-g -O0		# objdump -dS xxx.ko 增加调试信息
 
 build: kernel_modules
 

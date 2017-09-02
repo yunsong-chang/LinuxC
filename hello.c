@@ -9,16 +9,20 @@
 #include <linux/init.h>
 #include <linux/module.h>
 
+static int hello_init_data __initdata = 1;
 static int __init hello_init(void)
 {
-	printk(KERN_INFO "Hello World enter\n");
+	printk(KERN_INFO "Hello World enter %d\n", hello_init_data);
 	return 0;
 }
 module_init(hello_init);
 
+static int hello_exit_data __exitdata = 9;
 static void __exit hello_exit(void)
 {
-	printk(KERN_INFO "Hello World exit\n ");
+	printk(KERN_INFO "Hello World exit %d\n", hello_exit_data);
+//	printk(KERN_INFO "Hello World exit %d\n ", hello_exit_data);
+//	\n后有空格会打印一个空行
 }
 module_exit(hello_exit);
 
