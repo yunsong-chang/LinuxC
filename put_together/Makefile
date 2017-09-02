@@ -2,9 +2,15 @@ KVERS = $(shell uname -r)
 
 # Kernel modules
 obj-m += export_symb.o
+obj-m += use_symb.o
+
+#巧妙的方法
+#SRCS   = export_symb.c use_symb.c
+#OBJS   = $(SRCS:.c=.o)
+#obj-m += $(OBJS)
 
 # Specify flags for the module compilation.
-#EXTRA_CFLAGS=-g -O0		# objdump -dS xxx.ko 增加调试信息
+#EXTRA_CFLAGS=-g -O0
 
 build: kernel_modules
 
