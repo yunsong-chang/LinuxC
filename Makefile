@@ -1,11 +1,5 @@
-zero:
-	gcc -g -Wall array_zero.c
-
-var:
-	gcc -g -Wall array_var.c
-
-objdump:
-	objdump -dS a.out
+typeof:
+	gcc -g -Wall typeof.c
 
 clean:
 	rm *.o *.out
